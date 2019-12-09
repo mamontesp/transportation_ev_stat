@@ -42,10 +42,10 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
             grid on
             title('Consumo primario de energía - Costa Rica')
             xlabel('año')
-            ylabel('kBOE {\times 10^3}')
+            ylabel('Millones de BoE')
             set (gca, 'YTickMode', 'manual')
             set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/ConsumoPrimariaCostaRica.png')
+            saveas(gcf, 'fig/CostaRica/ConsumoPrimariaCostaRica.png')
         
         case "Japon"
             years= [2000, 2005, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
@@ -60,12 +60,9 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
 
             residential = [118981.091, 112856.1585, 100024.596, 95918.496, 96308.5755, 92578.868, 86980.885, 82977.4375, 82532.61, 88486.455]
 
-
             transport = [575120.8965, 543894.006, 506918.5755, 496783.352, 498829.5585, 493874.8645, 482343.567, 479209.244, 474904.6825, 470695.93]
 
             industry = [254372.895, 222174.2275, 165003.6285, 172298.7995, 161280.7645, 162964.2655, 155641.7205, 143193.394, 141578.328, 138197.639]
-
-
 
             figure('Position', [10, 10, 900, 600])
             title('Consumo Primario Energía Japon')
@@ -92,10 +89,10 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
             grid on
             title('Consumo primario de energía - Japon')
             xlabel('año')
-            ylabel('kBOE {\times 10^3}')
+            ylabel('Millones de BoE')
             set (gca, 'YTickMode', 'manual')
             set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/ConsumoPrimariaJapon.png')
+            saveas(gcf, 'fig/Japon/ConsumoPrimariaJapon.png')
             
         case "USA"
             years= [2000, 2005, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
@@ -135,10 +132,10 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
             grid on
             title('Consumo primario de energía - USA')
             xlabel('año')
-            ylabel('kBOE {\times 10^3}')
+            ylabel('Millones de BoE')
             set (gca, 'YTickMode', 'manual')
             set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/ConsumoPrimariaUSA.png')
+            saveas(gcf, 'fig/California/ConsumoPrimariaUSA.png')
     end
 
 

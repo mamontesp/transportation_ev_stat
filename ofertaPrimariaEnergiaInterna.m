@@ -36,7 +36,31 @@ function ofertaPrimaria = ofertaPrimariaEnergiaInterna(pais)
             ax.Children
             delete(ax.Children([1,3,5]))
             legend(labels, 'Location', 'southoutside')
-            saveas(gcf, 'fig/OfertaPrimariaCalifornia.png')      
+            saveas(gcf, 'fig/OfertaPrimariaCalifornia.png')  
+            
+        case "USA-Transportation"
+            x = [92.2, 2.7, 5.0, 0.09]
+        
+            labels = {'Petroleo', 'Gas Natural', 'Biomasa', 'Electricidad'}
+
+            figure('Position', [10, 10, 900, 600])
+            title('Uso de energía en transporte por tipo de combustible en US - 2017')
+            pie(x)
+            legend(labels, 'Location', 'eastoutside')
+            saveas(gcf, 'fig/UsoEnergiaTransporteUSA-2017.png')  
+        
+        case "Brasil"
+            x = [43.5700580296599, 25.6526585732041, 18.7032871676903, 4.33549922649957, 4.03092636909131, 2.31604583086541, 1.16120888368311, 0.230315919306271]
+
+            labels = {'Diesel','Gasolina','Etanol','Biodiesel','Queroseno','Gas Natural','Fueloil','Electricidad'}
+
+            figure('Position', [10, 10, 900, 600])
+            title('Oferta Primaria Brasil -2018')
+            pie(x)
+
+            legend(labels, 'Location', 'eastoutside')
+            saveas(gcf, 'fig/Brasil/OfertaPrimariaBrasil.png')
+        
         otherwise
             fprintf('Select a country')
     end

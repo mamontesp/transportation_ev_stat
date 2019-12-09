@@ -63,25 +63,26 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             saveas(gcf, 'fig/ParqueVehicularDesagregado-CostaRica.png')
             
          case "Japon"
-            years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
+            years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019]
 
-            automoviles = [4212267, 3524788, 4572332, 4562282, 4699591, 4215889, 4146458, 4386377, 4391160 ]
+            vehiculos_4ruedas = [75173269, 75146875, 75595763, 76074948, 76681339, 77064477, 77284414, 77639064, 77919101, 78119628 ]
 
-            autobuses = [12775, 10651, 11938, 11256, 11983, 13387, 15498, 15593, 13702 ]
 
-            carga = [731094, 674780, 785450, 801975, 851314, 817234, 808302, 832195, 867205 ]
+            triciclos = [3111, 3094, 14120, 14727, 15486, 16365, 17384, 18453, 19414, 20369 ]
 
-            motocicletas = [380242, 405533, 401895, 419398, 416723, 372696, 338148, 357264, 335572 ]
+
+            motocicletas = [3517115, 3510804, 3502701, 3535528, 3575746, 3589551, 3598932, 3602689, 3624586, 3649321 ]
             
             %%%Cantidad de vehículos eléctricos
             years_ev = [2013, 2014, 2015, 2016, 2017, 2018]
-            total_ev = [29000, 33000, 27000, 23000,55000, 43000]
+            total_ev = [29000, 62000, 89000, 112000,167000, 210000]
+
             
             %%Merging data
-            convencionales = [transpose(automoviles), transpose(autobuses), transpose(carga), transpose(motocicletas)]
+            convencionales = [transpose(vehiculos_4ruedas), transpose(triciclos), transpose(motocicletas)]
             electricos = [transpose(total_ev)]
             
-            etiquetas= {"Automoviles", "Autobuses", "Carga", "Motocicletas", "EV Total"}
+            etiquetas= {"Vehículos 4 ruedas", "Triciclos", "Motocicletas", "EV"}
             
             figure('Position', [10, 10, 900, 600])
             ax=gca
@@ -91,6 +92,60 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
            
             grid on
             title('Parque vehicular desagregado - Japon')
+            xlabel('año')
+            ylabel('Unidades vehiculos convencionales (millones)')
+            %ax.YAxis(1).Exponent = 6
+            set (ax, 'YTickMode', 'manual')
+            set (ax, 'YTickLabels', get(ax, 'YTick')/1000000)
+            
+            yyaxis right
+            plot_electricos = area(years_ev, electricos, 'FaceColor', 'flat', 'LineStyle','--')
+            ylabel('Unidades de vehículos eléctricos (millones)')
+            hold on
+            
+            ylim([0 1000000])
+            set (ax, 'YTickLabels', (0:0.1:1))
+            %ax.YAxis(2).Exponent = 3
+            
+            yyaxis left
+            
+            legend([plot_convencionales, plot_electricos], etiquetas, 'Location', 'southoutside', 'NumColumns', 2)
+            ax.YAxis(1).Color = 'k';
+            ax.YAxis(2).Color = 'k';
+            xlim([2010, 2018])
+            saveas(gcf, 'fig/Japon/ParqueVehicularDesagregado-Japon.png')
+            
+         case "California"
+            years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+
+            automoviles = [17766000, 17977605, 13223822, 13822505, 14065989, 14463569, 14768392, 14860967]
+
+            carga = [12658000, 12980991, 13597502, 13359688, 13713822, 14037540, 14511913, 14991714]
+            
+            autobuses = [37000, 55532, 93305, 92884, 93064, 94020, 98622, 99917]
+
+            motocicletas = [743000, 760051, 787521, 799900, 813771, 828883, 842106, 842543]
+
+            
+            %%%Cantidad de vehículos eléctricos
+            years_ev = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
+            bev = [300, 5602, 11799, 33711, 63247, 97724, 171578, 266451]
+            phev = [97, 1779, 16480, 37113, 67062, 94802, 129620, 129620]
+            
+            %%Merging data
+            convencionales = [transpose(automoviles), transpose(carga), transpose(autobuses), transpose(motocicletas)]
+            electricos = [transpose(bev), transpose(phev)]
+            
+            etiquetas= {"Automoviles", "Autobuses", "Carga", "Motocicletas", "BEV", "PHEV"}
+            
+            figure('Position', [10, 10, 900, 600])
+            ax=gca
+            
+            plot_convencionales= area(years, convencionales)
+            %legend(plot_convencionales, eti_convencionales, 'Location', 'southoutside', 'NumColumns', 2)
+           
+            grid on
+            title('Parque vehicular desagregado - USA')
             xlabel('año')
             ylabel('Unidades vehiculos convencionales (millones)')
             %ax.YAxis(1).Exponent = 6
@@ -112,7 +167,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             ax.YAxis(1).Color = 'k';
             ax.YAxis(2).Color = 'k';
             
-            saveas(gcf, 'fig/ParqueVehicularDesagregado-Japon.png')
+            saveas(gcf, 'fig/ParqueVehicularDesagregado-USA.png')
             
          case "Noruega"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
@@ -226,4 +281,129 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             ax.YAxis(2).Color = 'k';
             
             saveas(gcf, 'fig/ParqueVehicularDesagregado-Chile.png')
+            
+        case "Brasil"
+            years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
+
+            convencionales = [32110394, 34709557, 37330692, 39771073, 41787334, 42743324, 45183705, 47624086, 50064467 ]
+            electricos = [66, 266, 383, 874, 1729, 2575, 3666, 6962, 0 ]
+            
+            etiquetas= {"Convencionales", "Electricos"}
+            
+            figure('Position', [10, 10, 900, 600])
+            ax=gca
+            
+            plot_convencionales= area(years, convencionales)
+           
+            grid on
+            title('Parque vehicular convencional y eléctrico - Brasil')
+            xlabel('año')
+            ylabel('Unidades vehiculos convencionales (millones)')
+            %ax.YAxis(1).Exponent = 6
+            set (ax, 'YTickMode', 'manual')
+            set (ax, 'YTickLabels', get(ax, 'YTick')/1000000)
+            
+            yyaxis right
+            plot_electricos = area(years, electricos, 'FaceColor', 'flat', 'LineStyle','--')
+            ylabel('Unidades de vehículos eléctricos (miles)')
+            hold on
+            
+            ylim([0 10000])
+            set (ax, 'YTickLabels', (0:1:10))
+            %ax.YAxis(2).Exponent = 3
+            
+            yyaxis left
+            
+            legend([plot_convencionales, plot_electricos], etiquetas, 'Location', 'southoutside', 'NumColumns', 2)
+            ax.YAxis(1).Color = 'k';
+            ax.YAxis(2).Color = 'k';
+            xlim([2010, 2017])
+            saveas(gcf, 'fig/Brasil/ParqueVehicularDesagregado-Brasil.png')
+         
+        case "Canada"
+            years= [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
+
+            vehiculos_gasolina = [1548815, 3131291, 4793394, 6516558, 8292903, 10108596, 12033622, 13872077 ]
+
+            vehiculos_diesel = [63849, 132751, 207093, 295297, 380932, 452149, 517555, 588410 ]
+            
+            convencionales = [transpose(vehiculos_gasolina), transpose(vehiculos_diesel)]
+            
+            bev = [215, 861, 2463, 5302, 9453, 14443, 23364, 45908 ]
+
+            hev = [10106, 31044, 51739, 71530, 88839, 110561, 133393, 158748 ]
+
+            phev = [303, 1646, 3194, 5727, 8464, 15483, 26888, 47999 ]
+
+            
+            electricos = [transpose(bev), transpose(hev), transpose(phev)]
+            etiquetas= {"Vehiculos a gasolina", "Vehiculos a diesel", "BEV", "HEV", "PHEV"}
+            
+            figure('Position', [10, 10, 900, 600])
+            ax=gca
+            
+            plot_convencionales= area(years, convencionales)
+           
+            grid on
+            title('Parque vehicular convencional y eléctrico - Canada')
+            xlabel('año')
+            ylabel('Unidades vehiculos convencionales (millones)')
+            %ax.YAxis(1).Exponent = 6
+            set (ax, 'YTickMode', 'manual')
+            set (ax, 'YTickLabels', get(ax, 'YTick')/1000000)
+            
+            yyaxis right
+            plot_electricos = area(years, electricos, 'FaceColor', 'flat', 'LineStyle','--')
+            ylabel('Unidades de vehículos eléctricos (millones)')
+            hold on
+            
+            ylim([0 1000000])
+            set (ax, 'YTickLabels', (0:0.1:1))
+            %ax.YAxis(2).Exponent = 3
+            
+            yyaxis left
+            
+            legend([plot_convencionales, plot_electricos], etiquetas, 'Location', 'southoutside', 'NumColumns', 2)
+            ax.YAxis(1).Color = 'k';
+            ax.YAxis(2).Color = 'k';
+            xlim([2011, 2017])
+            saveas(gcf, 'fig/Canada/ParqueVehicularDesagregado-Canada.png')
+         case "Holanda"
+            years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
+
+            convencionales = [7736000,7859000, 7916000, 7932000, 7979000, 8101000, 8223000, 8373000, 8523000 ]
+            electricos = [500,2000, 10000, 30000, 45000, 90000, 151752, 165882, 197249]
+
+            
+            etiquetas= {"Convencionales", "Electricos"}
+            
+            figure('Position', [10, 10, 900, 600])
+            ax=gca
+            
+            plot_convencionales= area(years, convencionales)
+           
+            grid on
+            title('Parque vehicular convencional y eléctrico - Holanda')
+            xlabel('año')
+            ylabel('Unidades vehiculos convencionales (millones)')
+            %ax.YAxis(1).Exponent = 6
+            set (ax, 'YTickMode', 'manual')
+            set (ax, 'YTickLabels', get(ax, 'YTick')/1000000)
+            
+            yyaxis right
+            plot_electricos = area(years, electricos, 'FaceColor', 'flat', 'LineStyle','--')
+            ylabel('Unidades de vehículos eléctricos (millones)')
+            hold on
+            
+            ylim([0 1000000])
+            set (ax, 'YTickLabels', (0:0.1:1))
+            %ax.YAxis(2).Exponent = 3
+            
+            yyaxis left
+            
+            legend([plot_convencionales, plot_electricos], etiquetas, 'Location', 'southoutside', 'NumColumns', 2)
+            ax.YAxis(1).Color = 'k';
+            ax.YAxis(2).Color = 'k';
+            xlim([2010, 2017])
+            saveas(gcf, 'fig/Holanda/ParqueVehicularDesagregado-Holanda.png')
     end
