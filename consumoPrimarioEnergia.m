@@ -1,6 +1,19 @@
-function consumoPrimario = consumoPrimarioEnergia(pais)
+function consumoPrimario = consumoPrimarioEnergia(pais, lya)
+    if (lya== 'kBoE')
+        divider = 1
+        label_y_axis = 'kBoE'
+    end
+    if (lya == 'mBoE')
+        divider = 1000
+        label_y_axis = 'Millones de BoE'
+    end
+    
+    fig=figure('Position', [10, 10, 900, 600])
+    ax=gca
+    lineWidth = 3
+    
     switch pais
-        case "Costa Rica"
+        case "CostaRica"
             years= [2000, 2005, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
             not_energy_use = [431.1405, 287.427, 232.679, 280.5835, 396.923, 383.236, 417.4535, 526.9495, 506.419, 670.663]
@@ -16,12 +29,7 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
             transport = [6809.2825, 8615.9665, 10402.12, 10662.173, 10935.913, 11120.6875, 11353.3665, 12133.5255, 12961.589, 13221.642]
 
             industry = [1854.5885, 1799.8405, 1662.9705, 1608.2225, 1662.9705, 1560.318, 1539.7875, 1560.318, 1676.6575, 1697.188]
-
-            figure('Position', [10, 10, 900, 600])
-            title('Consumo Primario Energía Costa Rica')
             labels= {"Uso no energético", "Sin especificar", "Agricultura", "Servicios públicos", "Residencial", "Transporte", "Industria"}
-
-            lineWidth = 3
 
             h(1) = plot(years, not_energy_use, 'LineWidth', lineWidth)
             hold on
@@ -38,15 +46,6 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
             h(7) = plot(years, industry,  'LineWidth', lineWidth)
             hold on 
 
-            legend(h([1,2,3,4,5,6,7]), labels, 'Location', 'east')
-            grid on
-            title('Consumo primario de energía - Costa Rica')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/CostaRica/ConsumoPrimariaCostaRica.png')
-        
         case "Japon"
             years= [2000, 2005, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
@@ -64,11 +63,7 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
 
             industry = [254372.895, 222174.2275, 165003.6285, 172298.7995, 161280.7645, 162964.2655, 155641.7205, 143193.394, 141578.328, 138197.639]
 
-            figure('Position', [10, 10, 900, 600])
-            title('Consumo Primario Energía Japon')
             labels= {"Uso no energético", "Sin especificar", "Agricultura", "Servicios públicos", "Residencial", "Transporte", "Industria"}
-
-            lineWidth = 3
 
             h(1) = plot(years, not_energy_use, 'LineWidth', lineWidth)
             hold on
@@ -84,16 +79,6 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
             hold on
             h(7) = plot(years, industry,  'LineWidth', lineWidth)
             hold on 
-
-            legend(h([1,2,3,4,5,6,7]), labels, 'Location', 'east')
-            grid on
-            title('Consumo primario de energía - Japon')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Japon/ConsumoPrimariaJapon.png')
-            
         case "USA"
             years= [2000, 2005, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
@@ -109,11 +94,7 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
 
             industry = [175611.0535, 240549.025, 206728.448, 138765.6495, 137841.777, 139559.4955, 122450.7455, 132558.595, 138286.6045, 125762.9995]
 
-            figure('Position', [10, 10, 900, 600])
-            title('Consumo Primario Energía USA')
             labels= {"Uso no energético", "Agricultura", "Servicios públicos", "Residencial", "Transporte", "Industria"}
-
-            lineWidth = 3
 
             h(1) = plot(years, not_energy_use, 'LineWidth', lineWidth)
             hold on
@@ -128,14 +109,25 @@ function consumoPrimario = consumoPrimarioEnergia(pais)
             h(6) = plot(years, industry,  'LineWidth', lineWidth)
             hold on 
 
-            legend(h([1,2,3,4,5,6]), labels, 'Location', 'east')
-            grid on
-            title('Consumo primario de energía - USA')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/California/ConsumoPrimariaUSA.png')
+        otherwise
+            close(gcf)
+            return ;
     end
+    legend(h, labels, 'Location', 'southoutside','NumColumns', 2)
+    grid on
+    title('Consumo primario de energía - '+pais)
+    xlabel('año')
+    ylabel(label_y_axis)
+    
+    if(lya=='kBoE')
+        ax.YAxis.Exponent = 3
+    else
+        set (ax, 'YTickMode', 'manual')
+        set (ax, 'YTickLabels', get(ax, 'YTick')/divider)
+    end
+    saveas(gcf, 'fig/'+pais+'/ConsumoPrimaria'+pais+'.png')
+    close(gcf)
+       
+end
 
 

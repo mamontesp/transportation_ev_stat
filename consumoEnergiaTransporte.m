@@ -1,6 +1,19 @@
-function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
+function consumoEnergiaTransporte = consumoEnergiaTransporte(pais, lya)
+    if (lya== 'kBoE')
+        divider = 1
+        label_y_axis = 'kBoE'
+    end
+    if (lya == 'mBoE')
+        divider = 1000
+        label_y_axis = 'Millones de BoE'
+    end
+    
+    fig=figure('Position', [10, 10, 900, 600])
+    ax=gca
+    lineWidth = 3
+    
     switch pais
-        case "Costa Rica"
+        case "CostaRica"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
             gasolina = [4817.824, 4934.1635, 5139.4685, 5235.2775, 5358.4605, 5803.288, 6261.8025, 6412.3595]
@@ -13,12 +26,8 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
 
             transporte = [10402.12, 10662.173, 10935.913, 11120.6875, 11353.3665, 12133.5255, 12961.589, 13221.642]
 
-            figure('Position', [10, 10, 900, 600])
-
             labels= {"Gasolina", "Diesel", "Gas", "Electricidad"}
-
-            lineWidth = 3
-
+            
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
             h(2) = plot(years, diesel, 'LineWidth', lineWidth)
@@ -27,17 +36,8 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             hold on
             h(4) = plot(years, electricidad,  'LineWidth', lineWidth)
             hold on
-            
-            legend(h([1,2,3,4]), labels, 'Location', 'southoutside','NumColumns', 2)
-            grid on
-            title('Consumo histórico de productos derivados del petróleo - Costa Rica')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/CostaRica/ConsumoProductosTransporte-CostaRica.png')
-            
         case "USA"
+            
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
             gasolina = [2484306.8395, 2627917.687, 2479543.7635, 2329322.095, 2304049.0495, 2336357.213, 2353055.353, 2419909.5045]
@@ -50,11 +50,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
 
             transporte = [3801639.5285, 3688030.585, 3601104.448, 3700218.8585, 3701081.1395, 3841981.961, 3865434.6355, 3889126.8325]
 
-            figure('Position', [10, 10, 900, 600])
-
             labels= {"Gasolina", "Diesel", "Gas", "Electricidad"}
-
-            lineWidth = 3
 
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
@@ -65,14 +61,6 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             h(4) = plot(years, electricidad,  'LineWidth', lineWidth)
             hold on
             
-            legend(h([1,2,3,4]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Consumo histórico de productos derivados del petróleo - USA')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/California/ConsumoProductosTransporte-USA.png')
         case "Japon"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
@@ -86,11 +74,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
 
             transporte = [575120.8965, 543894.006, 506918.5755, 496783.352, 498829.5585, 493874.8645, 482343.567, 479209.244, 474904.6825, 470695.93]
 
-            figure('Position', [10, 10, 900, 600])
-
             labels= {"Gasolina", "Diesel", "Gas", "Electricidad"}
-
-            lineWidth = 3
 
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
@@ -100,16 +84,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             hold on
             h(4) = plot(years, electricidad,  'LineWidth', lineWidth)
             hold on
-            
-            legend(h([1,2,3,4]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Consumo histórico de productos derivados del petróleo - Japon')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Japon/ConsumoProductosTransporte-Japon.png')
-            
+
         case "Mexico"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
@@ -122,13 +97,8 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             electricidad = [700.58956, 660.54186, 664.95528, 691.10888, 673.78212, 667.08026, 670.83984, 633.6894685]
 
             ahorro_por_evs = [0, 0, 0.365, 0.4065, 0.6098, 1.0163, 4.187, 9.065]
- 
-
-            figure('Position', [10, 10, 900, 600])
 
             labels= {"Gasolina", "Diesel", "Gas", "Electricidad", "Ahorro por EVs"}
-
-            lineWidth = 3
 
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
@@ -140,16 +110,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             hold on
             h(5) = plot(years, electricidad,  'LineWidth', lineWidth)
             hold on
-            
-            legend(h([1,2,3,4,5]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Productos desagregados consumidos en transporte - México')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Mexico/ConsumoProductosTransporte-Mexico.png')
-            
+           
          case "Noruega"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
 
@@ -161,11 +122,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
 
             ahorro_por_evs = [1.6260162601626, 3.21138211382114, 10.6910569105691, 29.0650406504065, 63.6991869918699, 144.065040650407, 281.138211382114, 463.617886178862, 716.707317073171]
 
-            figure('Position', [10, 10, 900, 600])
-
-            labels= {"Gasolina", "Diesel", "Electricidad", "Ahorro por EVs"}
-
-            lineWidth = 3
+            labels= ["Gasolina", "Diesel", "Electricidad", "Ahorro por EVs"]
 
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
@@ -176,15 +133,6 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             hold on
             h(4) = plot(years, ahorro_por_evs,  'LineWidth', lineWidth)
             hold on
-            
-            legend(h([1,2,3,4]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Productos desagregados consumidos en transporte - Noruega')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Noruega/ConsumoProductosTransporte-Noruega.png')
             
          case "UK"
             years= [2010, 2018]
@@ -201,30 +149,16 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
 
             ahorro_por_evs = [6.78861788617886, 11.7886178861789, 22.7235772357724, 37.9674796747967, 97.8861788617886, 197.154471544715, 351.30081300813, 543.373983739837, 748.089430894309 ]
 
-            figure('Position', [10, 10, 900, 600])
-
             labels= {"Gasolina", "Diesel", "Electricidad", "Ahorro por EVs"}
-
-            lineWidth = 3
 
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
             h(2) = plot(years, diesel, 'LineWidth', lineWidth)
             hold on
-            
             h(3) = plot(anos_electricidad, electricidad,  'LineWidth', lineWidth)
             hold on
             h(4) = plot(anos_ahorro_por_evs, ahorro_por_evs,  'LineWidth', lineWidth)
             hold on
-            
-            legend(h([1,2,3,4]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Productos desagregados consumidos en transporte - UK')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/UK/ConsumoProductosTransporte-UK.png')
             
         case "Brasil"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 ]
@@ -243,15 +177,11 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
 
             querosene = [21816.8009523125, 24423.6176753596, 25743.180982985, 24694.3568228428, 24983.1260544222, 24700.5110226626, 22607.2561485018, 22554.0510096579, 23182.1675446442 ]
 
-            electricidad = [978.1645612188, 1000.52933458, 1109.51405226246, 1108.29426410448, 1164.25678332896, 1209.0931602174, 1180.88716570815, 1209.0931602174, 1324.56456423945 ]
-            
-            figure('Position', [10, 10, 900, 600])
+            electricidad = [978.1645612188, 1000.52933458, 1109.51405226246, 1108.29426410448, 1164.25678332896, 1209.0931602174, 1180.88716570815, 1209.0931602174, 1324.56456423945 ]           
 
             labels= {"Gasolina", "Diesel", "Gas", "Etanol", "Biodiesel", "Fueloil", "Querosene", "Electricidad"}
 
-            lineWidth = 3
-
-            h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
+            h(1) = plot(years, gasolina, 'LineWidth', lineWidth);
             hold on
             h(2) = plot(years, diesel, 'LineWidth', lineWidth)
             hold on
@@ -268,15 +198,6 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             h(8) = plot(years, electricidad, 'LineWidth', lineWidth)
             hold on
             
-            legend(h([1,2,3,4,5,6,7,8]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Productos desagregados consumidos en transporte - Brasil')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Brasil/ConsumoProductosTransporte-Brasil.png')
-            
         case "Holanda"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 ]
 
@@ -285,12 +206,8 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             diesel = [47614.66387842, 48186.75905032, 46110.87085514, 44901.29820598, 41125.47007144, 41534.10947994, 40831.24969732, 41910.05773576, 43037.90250322 ]
 
             gas = [65.38230536, 114.41903438, 163.4557634, 179.80133974, 228.83806876, 245.1836451, 294.22037412, 310.56595046, 310.56595046 ]
-            
-            figure('Position', [10, 10, 900, 600])
 
             labels= {"Gasolina", "Diesel", "Gas"}
-
-            lineWidth = 3
 
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
@@ -298,17 +215,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             hold on
             h(3) = plot(years, gas,  'LineWidth', lineWidth)
             hold on
-            
-            
-            legend(h([1,2,3]), labels, 'Location','southoutside', 'NumColumns', 2)
-            grid on
-            title('Productos desagregados consumidos en transporte - Holanda')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Holanda/ConsumoProductosTransporte-Holanda.png')
-            
+
         case "Chile"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017]
 
@@ -318,11 +225,7 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
 
             gas = [140.785714285714, 134.492857142857, 232.378571428571, 223.164285714286, 235.057142857143, 211.842857142857, 194.271428571429, 130.971428571429]
             
-            figure('Position', [10, 10, 900, 600])
-
             labels= {"Gasolina", "Diesel", "Gas"}
-
-            lineWidth = 3
 
             h(1) = plot(years, gasolina, 'LineWidth', lineWidth)
             hold on
@@ -330,16 +233,6 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             hold on
             h(3) = plot(years, gas,  'LineWidth', lineWidth)
             hold on
-            
-            
-            legend(h([1,2,3]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Productos desagregados consumidos en transporte - Chile')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Chile/ConsumoProductosTransporte-Chile.png')
             
         case "Canada"
             years= [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018]
@@ -349,14 +242,9 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             gas = [310.010200940304, 264.160859295384, 282.12464769744, 243.320249456784, 640.09276963104, 642.904208762208, 663.646745142744, 1055.7771216353, 1345.71495482518 ]
             
             biodiesel = [8329.9672341239, 10517.6918631576, 11359.1621333467, 13089.1288968666, 13039.1277788303, 13420.9767878025, 13849.7212553056, 15830.690689164, 15857.2195595703 ]
-
             electricidad = [586.822536325944, 607.07470541616, 601.631628493608, 666.866823682512, 480.249378563064, 494.175809608152, 507.9387848898, 515.326985397288, 532.980207848808 ]
 
-            figure('Position', [10, 10, 900, 600])
-
             labels= {"Derivados del petroleo", "Gas", "Biodiesel", "Electricidad"}
-
-            lineWidth = 3
 
             h(1) = plot(years, derivados_petroleo, 'LineWidth', lineWidth)
             hold on
@@ -366,14 +254,24 @@ function consumoEnergiaTransporte = consumoEnergiaTransporte(pais)
             hold on
             h(4) = plot(years, electricidad, 'LineWidth', lineWidth)
             hold on
-            
-            
-            legend(h([1,2,3,4]), labels, 'Location', 'southoutside', 'NumColumns', 2)
-            grid on
-            title('Productos desagregados consumidos en transporte - Canada')
-            xlabel('año')
-            ylabel('Millones de BoE')
-            set (gca, 'YTickMode', 'manual')
-            set (gca, 'YTickLabels', get(gca, 'YTick')/1000)
-            saveas(gcf, 'fig/Canada/ConsumoProductosTransporte-Canada.png')
+        otherwise
+            close(gcf)
+            return ;
     end
+
+    legend(h, labels, 'Location', 'southoutside','NumColumns', 2)
+    grid on
+    title('Consumo histórico de productos derivados del petróleo - '+pais)
+    xlabel('año')
+    ylabel(label_y_axis)
+    
+     if(lya=='kBoE')
+        ax.YAxis.Exponent = 3
+    else
+        set (ax, 'YTickMode', 'manual')
+        set (ax, 'YTickLabels', get(ax, 'YTick')/divider)
+    end
+
+    saveas(gcf, 'fig/'+pais+'/ConsumoProductosTransporte-'+pais+'.png')
+    close(gcf)
+end
